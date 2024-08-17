@@ -43,3 +43,28 @@ DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 DATABASES['default']=dj_database_url.parse(config('DATABASE_URL'))
 ```
+- After all the this we will check if the code is running or not```python manage.py runserver```
+
+### 5. Deployment of project
+- Install gunicorn ```pip install gunicorn```.
+- Make a ```requirements.txt``` file. ```pip freeze >> requirements.txt```.
+- Now add the repo to the web service.
+- Now fill the whole form for the web service.
+```
+Start command: gunicorn todo_django.wsgi:application
+```
+- Now we will add environment variable.
+
+    - Add from .env
+    - copy the content from the ```.env``` file and paste in the web service form.
+    - Next we will copy internal database url from the postgresql from render.
+    - And we will replace ```DATABASE_URL``` with the internal database.
+- Next create web service.
+- During deployment we will get the error.
+
+```
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'todo-django-bv5s.onrender.com'. You may need to add 'todo-django-bv5s.onrender.com' to ALLOWED_HOSTS.
+```
+
+- to fix this we add ```todo-django-bv5s.onrender.com``` this url in our ```ALLOWED_HOSTS``` and save the changes.
+- Now our website we will live.
